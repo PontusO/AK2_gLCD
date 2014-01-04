@@ -10,6 +10,9 @@
 #ifndef GLCD_PANEL_CONFIG_H
 #define GLCD_PANEL_CONFIG_H
 
+// Make sure we get any specific board macros
+#include <pins_arduino.h>
+
 /*
  * define name for panel configuration
  */
@@ -135,8 +138,11 @@
   * There is also a dependency on the file glcd/include/arduino_io.h which does the arduino pin mappings
   */
  
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+#if defined(__AVR_ATmega1280__) || (defined(__AVR_ATmega2560__) && !defined(__AK2_MEGA_BOARD__))
+#error Naugty
 #include "config/ks0108_Mega.h"      // config for mega 1280/2560 board
+#elif defined(__AVR_ATmega1280__) || (defined(__AVR_ATmega2560__) && defined(__AK2_MEGA_BOARD__))
+#include "config/ks0108_Ak2_Mega.h"      // config for mega 1280/2560 board
 #elif defined(__AVR_ATmega644P__)  || defined(__AVR_ATmega644__)           
 #include "config/ks0108_Sanguino.h"  // config for Sanguino or other ATmega644/p board
 #elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32U4__)// Teensy

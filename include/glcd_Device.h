@@ -47,6 +47,13 @@
 #define BLACK				0xFF
 #define WHITE				0x00
 
+// Backlight states
+#define BL_ON        1
+#define BL_OFF       0
+// The I2C address of the digital potentiometer (AD5280) that controls
+// the contrast of the LCD.
+#define AD5280_ADDRESS    (0x2C)
+
 /// @cond hide_from_doxygen
 typedef struct {
 	uint8_t x;
@@ -76,12 +83,16 @@ class glcd_Device : public Print
 {
   private:
   // Control functions
+  uint8_t  contrast;
+  uint8_t  bl;
+
 	uint8_t DoReadData(void);
 	void WriteCommand(uint8_t cmd, uint8_t chip);
 	inline void Enable(void);
 	inline void SelectChip(uint8_t chip); 
 	void WaitReady(uint8_t chip);
 	uint8_t GetStatus(uint8_t chip);
+	void doWire(void);
 #if ARDUINO < 100
 	void write(uint8_t); // for Print base class
 #else
@@ -90,16 +101,18 @@ class glcd_Device : public Print
 	
   public:
     glcd_Device();
+    void setBacklight(uint8_t status);
+    void setContrast(uint8_t contrast);
 	protected: 
     int Init(uint8_t invert = false);      // now public, default is non-inverted
-	void SetDot(uint8_t x, uint8_t y, uint8_t color);
-	void SetPixels(uint8_t x, uint8_t y,uint8_t x1, uint8_t y1, uint8_t color);
+    void SetDot(uint8_t x, uint8_t y, uint8_t color);
+    void SetPixels(uint8_t x, uint8_t y,uint8_t x1, uint8_t y1, uint8_t color);
     uint8_t ReadData(void);        // now public
-    void WriteData(uint8_t data); 
+    void WriteData(uint8_t data);
+    void GotoXY(uint8_t x, uint8_t y);
 
-  	void GotoXY(uint8_t x, uint8_t y);   
-    static lcdCoord	  	Coord;  
-	static uint8_t	 	Inverted; 
+    static lcdCoord	 Coord;
+    static uint8_t	 Inverted;
 };
   
 #endif

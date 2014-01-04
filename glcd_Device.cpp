@@ -24,6 +24,8 @@
 
 */
 
+#include <Wire.h>
+
 #include "include/glcd_Device.h"
 #include "include/glcd_io.h"
 #include "include/glcd_errno.h"
@@ -312,6 +314,9 @@ void glcd_Device::GotoXY(uint8_t x, uint8_t y)
 
 int glcd_Device::Init(uint8_t invert)
 {  
+
+  // Init I2c
+  Wire.begin();
 
 	/*
 	 * Now setup the pinmode for all of our control pins.
@@ -788,6 +793,31 @@ void glcd_Device::WriteData(uint8_t data) {
  		}
 	    //showXY("WrData",this->Coord.x, this->Coord.y); 
 	}
+}
+
+void glcd_Device::doWire(void)
+{
+  Wire.beginTransmission(AD5280_ADDRESS);
+  Wire.write(this->bl);
+  Wire.write(this->contrast);
+  Wire.endTransmission();
+}
+
+void glcd_Device::setBacklight(boolean status)
+{
+  if (status) {
+    this->bl = 0x10;
+  } else {
+    this->bl = 0x00;
+  }
+  doWire();
+}
+
+void glcd_Device::setContrast(uint8_t contrast)
+{
+  this->contrast = contrast;
+  // Update AD5280 chip
+  doWire();
 }
 
 /*

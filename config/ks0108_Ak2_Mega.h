@@ -1,10 +1,10 @@
 /*
- * ks0108_Mega.h - User specific configuration for Arduino GLCD library
+ * Ak2_ks0108_Mega.h - User specific configuration for Arduino GLCD library
  *
  * Use this file to set io pins
  *
  * The configuration below uses a single port for data 
- * and has the same wiring as the mega config from the previous ks0108 library 
+ * This config is specific for the Ak2 Mega board from Sweet Peas
  *
 */
 
@@ -22,11 +22,11 @@
 /*
  * Pins used for Commands
  */
-#define glcdCSEL1     33    // CS1 Bit
-#define glcdCSEL2     34    // CS2 Bit
-#define glcdRW        35    // R/W Bit
-#define glcdDI        36    // D/I Bit
-#define glcdEN        37    // EN Bit
+#define glcdCSEL1     22 // CS1 Bit
+#define glcdCSEL2     23 // CS2 Bit
+#define glcdRW        24 // R/W Bit
+#define glcdDI        25 // D/I Bit
+#define glcdEN        26 // EN Bit
 
 #if NBR_CHIP_SELECT_PINS > 2
 #define glcdCSEL3     32   // third chip select if needed
@@ -40,14 +40,14 @@
  * Data pin definitions
  * This version uses pins 22-29 for LCD Data 
  */
-#define glcdData0Pin    22
-#define glcdData1Pin    23
-#define glcdData2Pin    24
-#define glcdData3Pin    25
-#define glcdData4Pin    26
-#define glcdData5Pin    27
-#define glcdData6Pin    28
-#define glcdData7Pin    29
+#define glcdData0Pin    6
+#define glcdData1Pin    7
+#define glcdData2Pin    8
+#define glcdData3Pin    9
+#define glcdData4Pin    10
+#define glcdData5Pin    11
+#define glcdData6Pin    12
+#define glcdData7Pin    13
 
 // Reset Bit  - uncomment the next line if reset is connected to an output pin
 //#define glcdRES         30    // Reset Bit
