@@ -13,7 +13,7 @@
  * that have similar dependencies most notabily the ones in glcd/config
 */ 
 
-#include "pins_arduino.h"
+#include <pins_arduino.h>
 
 #if !(defined(digitalPinToPortReg) && defined(digitalPinToBit))
 #if defined(__AVR_ATmega8__) || defined(__AVR_ATmega168__) || defined(__AVR_ATmega328P__)
@@ -24,7 +24,7 @@
 #define digitalPinToBit(P) \
     (((P) >= 0 && (P) <= 7) ? (P) : (((P) >= 8 && (P) <= 13) ? (P) - 8 : (P) - 14))
 
-#elif defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
+#elif defined(__AVR_ATmega1280__) || (defined(__AVR_ATmega2560__) && !defined(__AK2_MEGA_BOARD__))
 	// Arduino Mega Pins
 #define digitalPinToPortReg(P) \
     (((P) >= 22 && (P) <= 29) ? &PORTA : \
@@ -53,6 +53,51 @@
 	(((P) == 5 || (P) == 6 || (P) == 18) ? 3 : \
 	(((P) == 2) ? 4 : \
 	(((P) == 3 || (P) == 4) ? 5 : 7)))))))))))))))
+#elif defined (__AK2_MEGA_BOARD__)
+// AK2 mega board pins
+#define digitalPinToPortReg(P) \
+    (((P) >= 6 && (P) <= 13) ? &PORTA : \
+    (((P) >= 48 && (P) <= 53) ? &PORTB : \
+    (((P) >= 35 && (P) <= 42) ? &PORTC : \
+    (((P) >= 43 && (P) <= 47) ? &PORTG : \
+    (((P) >= 2 && (P) <= 3) ? &PORTH : \
+    ((((P) >= 14 && (P) <= 15) || ((P) >= 54 && (P) <= 58)) ? &PORTJ : \
+    ((((P) >= 20 && (P) <= 21) || ((P) >= 29 && (P) <=34)) ? &PORTD : \
+    ((((P) >= 0 && (P) <= 1) || ((P) >= 22 && (P) <= 27)) ? &PORTE : \
+    ((((P) >= 59 && (P) <= 65) || ((P) == 28)) ? &PORTK : &PORTL)))))))))
+
+// Currently mapped up to pin 27.
+#define digitalPinToBit(P) \
+    (((P) == 0 ? 1 : \
+    (((P) == 1 ? 0 : \
+    (((P) == 2 ? 3 : \
+    (((P) == 3 ? 4 : \
+    (((P) == 4 ? 3 : \
+    (((P) == 5 ? 4 : \
+    ((((P) >= 6 && (P) <= 13) ? (P) - 6 : \
+    (((P) == 14 ? 1 : \
+    (((P) == 15 ? 0 : \
+    (((P) == 16 ? (P) - 14 : \
+    ((((P) >= 17 && (P) <= 19) ? (P) - 12 : \
+    (((P) == 20 ? 1 : \
+    (((P) == 21 ? 0 : \
+    ((((P) >= 22 && (P) <= 27) ? (P) - 20 : 0 \
+))))))))))))))))))))))))))))
+
+#if 0
+(((P) >= 30 && (P) <= 37) ? 37 - (P) : \
+(((P) >= 39 && (P) <= 41) ? 41 - (P) : \
+(((P) >= 42 && (P) <= 49) ? 49 - (P) : \
+(((P) >= 50 && (P) <= 53) ? 53 - (P) : \
+(((P) >= 54 && (P) <= 61) ? (P) - 54 : \
+(((P) >= 62 && (P) <= 69) ? (P) - 62 : \
+(((P) == 0 || (P) == 15 || (P) == 17 || (P) == 21) ? 0 : \
+(((P) == 1 || (P) == 14 || (P) == 16 || (P) == 20) ? 1 : \
+(((P) == 19) ? 2 : \
+(((P) == 5 || (P) == 6 || (P) == 18) ? 3 : \
+(((P) == 2) ? 4 : \
+(((P) == 3 || (P) == 4) ? 5 : 7)))))))))))))))
+#endif
 
 #elif defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644__)  
 // Sanguino or other ATmega644 controller

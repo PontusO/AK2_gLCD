@@ -22,11 +22,11 @@
 /*
  * Pins used for Commands
  */
-#define glcdCSEL1     33    // CS1 Bit  
-#define glcdCSEL2     34    // CS2 Bit
-#define glcdRW        35    // R/W Bit
-#define glcdDI        36    // D/I Bit 
-#define glcdEN        37    // EN Bit
+#define glcdCSEL1     22 // 33    // CS1 Bit
+#define glcdCSEL2     23 // 34    // CS2 Bit
+#define glcdRW        24 // 35    // R/W Bit
+#define glcdDI        25 // 36    // D/I Bit 
+#define glcdEN        26 // 37    // EN Bit
 
 #if NBR_CHIP_SELECT_PINS > 2
 #define glcdCSEL3     32   // third chip select if needed
@@ -40,14 +40,14 @@
  * Data pin definitions
  * This version uses pins 22-29 for LCD Data 
  */
-#define glcdData0Pin    22
-#define glcdData1Pin    23
-#define glcdData2Pin    24
-#define glcdData3Pin    25
-#define glcdData4Pin    26
-#define glcdData5Pin    27
-#define glcdData6Pin    28
-#define glcdData7Pin    29
+#define glcdData0Pin    6 // 22
+#define glcdData1Pin    7 // 23
+#define glcdData2Pin    8 // 24
+#define glcdData3Pin    9 // 25
+#define glcdData4Pin    10 // 26
+#define glcdData5Pin    11 // 27
+#define glcdData6Pin    12 // 28
+#define glcdData7Pin    13 // 29
 
 // Reset Bit  - uncomment the next line if reset is connected to an output pin
 //#define glcdRES         30    // Reset Bit

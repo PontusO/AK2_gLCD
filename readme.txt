@@ -1,5 +1,11 @@
 readme.txt file for Arduino glcd library
 
+NOTICE:
+This repo is based on the semi-official Arduino library found on 
+google code. It has been updated to work with my own AK2_MEGA board
+that uses a different pin mapping from the origina Mega board.
+/Pontus
+
 INSTALL 
 This library should be unziped into a folder named glcd in the libraries
 directory. If you already have a folder called libraries in your Arduino 
