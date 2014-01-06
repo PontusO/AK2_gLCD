@@ -10,6 +10,7 @@
 
 #include <Time.h>  // download from: http://www.arduino.cc/playground/Code/Time
 #include <glcd.h>
+#include <Wire.h>
 
 #include "fonts/allFonts.h"         // system and arial14 fonts are used
 #include "bitmaps/allBitmaps.h"   // all images in the bitmap dir 
@@ -43,6 +44,11 @@ void setup()
 {
 
   GLCD.Init();   // initialise the library, non inverted writes pixels onto a clear screen
+
+  // Screen control
+  GLCD.setBacklight(BL_ON);
+  GLCD.setContrast(64);
+
   if(GLCD.Height >= 64)   
     icon = ArduinoIcon64x64;  // the 64 pixel high icon
   else
